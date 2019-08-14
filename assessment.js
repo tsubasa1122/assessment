@@ -1,4 +1,24 @@
 'use strict';
+const userNameInput = document.getElementById('user-name');
+const assessmentButton = document.getElementById('assessment');
+const resultDivided = document.getElementById('result-area');
+const tweetDivided = document.getElementById('tweet-area');
+
+assessmentButton.onclick = function() {
+  const userName = userNameInput.value;
+  if (userName.length === 0) {
+    return;
+  }
+  const header = document.createElement('h3');
+  header.innerText = '診断結果';
+  resultDivided.appendChild(header);
+
+  const paragraph = document.createElement('p');
+  const result = assessment(userName);
+  paragraph.innerText = result;
+  resultDivided.appendChild(paragraph);
+}
+
 
 const answers = [
   '{userName}のいいところは声です。{userName}の特徴的な声は皆を惹きつけ、心に残ります。',
@@ -38,6 +58,13 @@ const answers = [
    return result;
  }
 
- console.log(assessment('太郎'));
- console.log(assessment('二郎'));
- console.log(assessment('太郎'));
+//  テストコード
+console.assert(
+  assessment('太郎') === '太郎のいいところは決断力です。太郎がする決断にいつも助けられる人がいます。',
+  '診断結果の文言の指定の部分を名前に置き換える処理が正しくありません。'
+);
+
+console.assert(
+  assessment('太郎') === assessment('太郎'),
+  '入力が同じ名前なら同じ診断結果を出力する処理が正しくありません。'
+);
