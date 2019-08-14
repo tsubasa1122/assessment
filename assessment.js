@@ -4,7 +4,19 @@ const assessmentButton = document.getElementById('assessment');
 const resultDivided = document.getElementById('result-area');
 const tweetDivided = document.getElementById('tweet-area');
 
+/**
+ * 指定した子供の要素をすべて削除する
+ * @params {HTMLElement} element HTMLの要素
+ */
+
+function removeAllChildren(element) {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+}
+
 assessmentButton.onclick = function() {
+  removeAllChildren(resultDivided);
   const userName = userNameInput.value;
   if (userName.length === 0) {
     return;
@@ -17,7 +29,13 @@ assessmentButton.onclick = function() {
   const result = assessment(userName);
   paragraph.innerText = result;
   resultDivided.appendChild(paragraph);
+
+  const tweet = document.createElement('p');
+  tweet.innerText = 'ツイート';
+  resultDivided.appendChild(tweet);
+
 }
+
 
 
 const answers = [
